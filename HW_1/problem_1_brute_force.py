@@ -4,26 +4,12 @@ Kobe driver and Thomas editor
 Given an integer array nums, find the subarray with the largest sum, and return its sum. A subarray is a contiguous non-empty sequence of elements within an array.
 Your program should contain a function that takes in the input and returns the output.
 
-Example 1:
-Input: nums = [-2,1,-3,4,-1,2,1,-5,4], Output: 6
-Explanation: The subarray [4,-1,2,1] has the largest sum 6.
-
-Example 2:
-Input: nums = [1], Output: 1
-Explanation: The subarray [1] has the largest sum 1.
-
-Example 3:
-Input: nums = [5,4,-1,7,8], Output: 23
-
-Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
-You should provide:
-Two programming solutions to the problem (in two separate .py files):
-A brute force approach which checks every possible combination of sub arrays and their sum.
-A more efficient solution which reduces the time complexity significantly.
-
-
-For each of the solutions, you should provide a description of algorithm
-A discussion on how the second solution improved the time complexity.
+Description of Algorithum:
+This is the brute force algorithum, it solves the problem in O(n^2) time.
+It does this by starting on one end of the array, this is the first loop, this point in this case i is the start point.
+It then works through the whole array adding all numbers to the currentSub. If at any point in this loop currentSub is larger
+than largestSub it updates largest some. After that cycle finished for all of j, i the start point is then moved forward 
+one spot and the cycle is repeated.
 '''
 
 class BruteForce():
@@ -39,7 +25,7 @@ class BruteForce():
 
     def largestSubArray(self):
         lengthArray = len(self.numArray)
-        largestSub = 0
+        largestSub = -100000
         currentSub = 0
         if(lengthArray > 0) :
             largestSub = self.numArray[0]
