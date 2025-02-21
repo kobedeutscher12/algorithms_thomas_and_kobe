@@ -13,7 +13,9 @@ A more efficient solution which reduces the time complexity significantly.
 
 Description of Algorithm:
 This algorithm checks every possible combination of intervals for validity and then returns the largest number
-of intervals it could find. 
+of intervals it could find. A new set is created in the i loop with the base of the original tuple for that loop
+and then every other tuple is compared with the tuples in the new set and added or left out based on whether there is
+overlap or not. The time complexity for this solution is O(n^2)
 '''
 class ProblemTwoBruteForce():
 
@@ -50,10 +52,15 @@ class ProblemTwoBruteForce():
             newSet = {i}
             
             for j in self.intervals:
-                
-                if self.overlapChecker(i, j):
+                overlap = True
+                for k in newSet:
+                    if not self.overlapChecker(k, j):
+                        overlap = False
+
+                if overlap:
                     newSet.add(j)
-            
+                    
+                    
             if (len(newSet) > maxSet):
                 maxSet = len(newSet)
 
@@ -62,7 +69,10 @@ class ProblemTwoBruteForce():
 
 def main():
     ex1 = [(1, 3), (2, 5), (4, 6), (6, 8), (7, 9)]
+    ex2 = [(4,5),(4,6)]
+    
     print(ProblemTwoBruteForce(ex1).mostIntervalsBrute())
+    print(ProblemTwoBruteForce(ex2).mostIntervalsBrute())
 
 if __name__ == "__main__":
     main()
