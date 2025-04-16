@@ -38,8 +38,7 @@ class RobbingHouse():
         if length == 1:
             return self.house_list[0]
         
-        # maxMoney[i] represents maximum money that can be robbed from first i houses
-        maxMoney = [0] * length
+        maxMoney = [0] * length #This is the table it is only an array unlike the knapsack problem
         maxMoney[0] = self.house_list[0]
         maxMoney[1] = max(self.house_list[0], self.house_list[1])
         
@@ -57,7 +56,6 @@ def main():
     ex2 = [1, 2, 3, 1]
     print(f"ex2\nMaximum money: {RobbingHouse(ex2).findMaxMoney()}\n")
     
-    # Additional test cases
     ex3 = [2, 7, 9, 3, 1]
     print(f"ex3\nMaximum money: {RobbingHouse(ex3).findMaxMoney()}\n")
     
@@ -65,7 +63,10 @@ def main():
     print(f"ex4 empty block\nMaximum money: {RobbingHouse(ex4).findMaxMoney()}\n")
     
     ex5 = [5]
-    print(f"ex5 two house\nMaximum money: {RobbingHouse(ex5).findMaxMoney()}\n")
+    print(f"ex5 one house\nMaximum money: {RobbingHouse(ex5).findMaxMoney()}\n")
+
+    ex6 = [2, 7]
+    print(f"ex6 two houses\nMaximum money: {RobbingHouse(ex3).findMaxMoney()}\n")
 
 if __name__ == "__main__":
     main()
