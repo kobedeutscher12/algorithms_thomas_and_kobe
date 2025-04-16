@@ -31,7 +31,7 @@ class RobbingHouse():
         self.house_list = house_list
     
     def findMaxMoney(self):
-        #Base Cases :) Easy
+        #Base Cases :) Easy, base case of 2 is inclued 
         n = len(self.house_list)
         if n == 0:
             return 0
@@ -44,7 +44,7 @@ class RobbingHouse():
         maxMoney[1] = max(self.house_list[0], self.house_list[1])
         
         for i in range(2, n):
-            # This is the bellmont equation excluding base casses above. Either we rob the current house
+            # This is the bellmont equation excluding base cases above. Either we rob the current house
             # and the previous saved or we profit more from robbing the house before and skipping this house.
             maxMoney[i] = max(maxMoney[i-2] + self.house_list[i], maxMoney[i-1])
         
@@ -64,7 +64,7 @@ def main():
     ex4 = []
     print(f"ex4 empty block\nMaximum money: {RobbingHouse(ex4).findMaxMoney()}\n")
     
-    ex5 = [5]
+    ex5 = [5, 6]
     print(f"ex5 two house\nMaximum money: {RobbingHouse(ex5).findMaxMoney()}\n")
 
 if __name__ == "__main__":
