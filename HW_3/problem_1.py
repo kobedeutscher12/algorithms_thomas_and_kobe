@@ -3,69 +3,48 @@ Thomas driver and Kobe editor
 
 2D Matrix Problem
 
-This program acheives the desired O(m+n) time complexity by searching the matrix from
-[m-2][n-2] downwards across the diagonal until a number less than the target is found.
-The algorithm then checks the previous row and column for the target number. Protocols are
-in place to prevent the program from going out of bounds and it is capable of handling
-non square matrices using the same method as well. The program will have to check every
-part of one column and one row in the worst case which is equal to m+n searches.
+This program acheives the desired O(m+n) time complexity by searching the matrix starting at [m][1].
+If the number is larger the program moves right 1 and if the number is smaller the program moves up.
+In the worst case it goes all the way up and then all the way right achieving the O(m+n) time.
 """
 
 class MatrixIntFinder():
 
     def findInt(self, matrix, target):
         """find specified int in a list of lists"""
-        rows = len(matrix)
-        cols = len(matrix[0])
+        rows = len(matrix)-1
+        cols = 0
 
-        row_dist_from_corner = 1
-        col_dist_from_corner = 1
-        cur = matrix[self.nextIndex(rows, row_dist_from_corner)][self.nextIndex(cols, col_dist_from_corner)]
+        while(True):
+            #Ensure we haven't step out of the array
+            if(cols > (len(matrix[0])-1) or rows < 0):
+                return None
+            cur = matrix[rows][cols]
+            #Check if this is the number
+            if(target == cur):
+                return (rows, cols)
 
-        while(cur >= target):
-            if cur == target:
-                return (self.nextIndex(rows, row_dist_from_corner), self.nextIndex(cols, col_dist_from_corner))
-            if(rows - row_dist_from_corner - 1 != 0):
-                row_dist_from_corner += 1
+            #Decide if we step up or to the right
+            if(target < cur):
+                rows -= 1
+            if(target > cur):
+                cols += 1
 
-            if(cols - col_dist_from_corner - 1 != 0):
-                col_dist_from_corner += 1
-
-            cur = matrix[self.nextIndex(rows, row_dist_from_corner)][self.nextIndex(cols, col_dist_from_corner)]
-
-        return self.searchRowCol(matrix, target, self.nextIndex(rows, row_dist_from_corner-1), self.nextIndex(cols, col_dist_from_corner-1))
-
-    def nextIndex(self, dim_length, distance):
-        """
-        Helper that prevents dist_from_corner from allowing
-        an out of bounds index call
-        """
-        if dim_length > distance:
-            return dim_length - distance - 1
-        
-        return 0
-        
-    def searchRowCol(self, matrix, target, row, col):
-        """
-        Helper that searches a specific row and column set for the target
-        value
-        """
-        for i in range(0, row+1):
-            if(matrix[i][col]) == target:
-                return (i, col)
-            
-        for j in range(0, col+1):
-            if(matrix[row][j]) == target:
-                return(row, j)
-            
-        return self.searchRowCol(matrix, target, row+1, col+1)
+        return 
 
 def main():
     finder = MatrixIntFinder()
 
-    ex1 = [[1, 3, 5], [2, 4, 6]]
-    ex2 = [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
-    ex3 = [[1, 30, 55, 76, 90], [3, 34, 57, 77, 92], [6, 36, 60, 80, 93], [15, 40, 65, 83, 96], [21, 47, 71, 88, 99]]
+    ex1 = [[1, 3, 5], 
+           [2, 4, 6]]
+    ex2 = [[1, 4, 7], 
+           [2, 5, 8], 
+           [3, 6, 9]]
+    ex3 = [[1, 30, 55, 76, 90], 
+           [3, 34, 57, 77, 92], 
+           [6, 36, 60, 80, 93], 
+           [15, 40, 65, 83, 96], 
+           [21, 47, 71, 88, 99]]
 
     print("TESTS FOR EX1")
     print(finder.findInt(ex1, 2))
@@ -79,6 +58,7 @@ def main():
     print(finder.findInt(ex3, 34))
     print(finder.findInt(ex3, 71))
     print(finder.findInt(ex3, 36))
+    print(finder.findInt(ex3, 0))
 
 
 if __name__ == "__main__":
